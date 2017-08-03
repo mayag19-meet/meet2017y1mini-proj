@@ -1,16 +1,28 @@
 import turtle
 import random
 
+
+border = turtle.clone()
+border.hideturtle()
+border.penup()
+border.goto(-400,250)
+border.pendown()
+border.goto(400, 250)
+border.goto(400,-250)
+border.goto(-400,-250)
+border.goto(-400,250)
+border.penup()
+
 turtle.tracer(1,0) # helps turtle move smoothly
 
-SIZE_X = 800
-SIZE_Y = 500
+SIZE_X = 900
+SIZE_Y = 600
 turtle.setup(SIZE_X, SIZE_Y) # turtle window size
 
 turtle.penup()
 
 SQUARE_SIZE = 20
-START_LENGTH = 10
+START_LENGTH = 1
 
 # lists
 pos_list = []
@@ -56,22 +68,26 @@ LEFT_EDGE = -400
 
 def up():
     global direction
-    direction = UP
+    if direction != DOWN:
+        direction = UP
     print("You pressed the up key!")
 
 def down():
     global direction
-    direction = DOWN
+    if direction != UP:
+        direction= DOWN
     print("You pressed the down key!")
 
 def left():
     global direction
-    direction = LEFT
+    if direction != RIGHT:
+        direction = LEFT
     print("You pressed the left key!")
 
 def right():
     global direction
-    direction = RIGHT
+    if direction != LEFT:
+        direction = RIGHT
     print("You pressed the right key!")
 
 
@@ -111,16 +127,16 @@ def move_snake():
     if snake.pos() in food_pos:
         food_ind = food_pos.index(snake.pos())
         food.clearstamp(food_stamps[food_ind])
-
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         print("You have eaten the food!")
-        
         make_food()
+        
     
-    old_stamp = stamp_list.pop(0)
-    snake.clearstamp(old_stamp)
-    pos_list.pop(0)
+    else:
+        old_stamp = stamp_list.pop(0)
+        snake.clearstamp(old_stamp)
+        pos_list.pop(0)
     
     new_pos = snake.pos()
     new_x_pos = new_pos[0]
