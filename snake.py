@@ -1,6 +1,7 @@
 import turtle
 import random
 
+c=0
 
 border = turtle.clone()
 border.hideturtle()
@@ -97,8 +98,7 @@ turtle.onkeypress(left, LEFT_ARROW)
 turtle.onkeypress(right, RIGHT_ARROW)
 
 turtle.listen()
-    
-    
+
 
 def move_snake():
     my_pos = snake.pos()
@@ -131,7 +131,11 @@ def move_snake():
         food_stamps.pop(food_ind)
         print("You have eaten the food!")
         make_food()
-        
+        global c
+        c=c+1
+        turtle.clear()
+        turtle.write(c)
+
     
     else:
         old_stamp = stamp_list.pop(0)
@@ -160,6 +164,8 @@ def move_snake():
         print("You ate yourself! Game over!")
         quit()
 
+   
+    
 move_snake()
 
 turtle.register_shape("trash.gif")
