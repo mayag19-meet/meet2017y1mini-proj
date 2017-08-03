@@ -10,7 +10,7 @@ turtle.setup(SIZE_X, SIZE_Y) # turtle window size
 turtle.penup()
 
 SQUARE_SIZE = 20
-START_LENGTH = 2
+START_LENGTH = 10
 
 # lists
 pos_list = []
@@ -112,10 +112,10 @@ def move_snake():
         food_ind = food_pos.index(snake.pos())
         food.clearstamp(food_stamps[food_ind])
 
-
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         print("You have eaten the food!")
+        
         make_food()
     
     old_stamp = stamp_list.pop(0)
@@ -140,6 +140,10 @@ def move_snake():
     
     turtle.ontimer(move_snake,TIME_STEP)
 
+    if pos_list[-1] in pos_list[0:-1]:
+        print("You ate yourself! Game over!")
+        quit()
+
 move_snake()
 
 turtle.register_shape("trash.gif")
@@ -147,10 +151,10 @@ food = turtle.clone()
 food.shape("trash.gif")
 
 def make_food():
-    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
-    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
-    min_y=-int(SIZE_Y/2/SQUARE_SIZE)-1
-    max_y=int(SIZE_Y/2/SQUARE_SIZE)+1
+    min_x=-int(SIZE_X/2.5/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/2.5/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/2.5/SQUARE_SIZE)+1
+    max_y=int(SIZE_Y/2.5/SQUARE_SIZE)-1
 
     food_x = random.randint(min_x,max_x)*SQUARE_SIZE
     food_y = random.randint(min_y,max_y)*SQUARE_SIZE
@@ -166,10 +170,6 @@ make_food()
 
 
 food.hideturtle()
-
-
-
-
 
 
 
